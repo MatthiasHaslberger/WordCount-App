@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Academic Paper Word Counter</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <header>
+    <h1>Academic Paper Word Counter</h1>
+    <p class="subtitle">Upload a PDF and get a precise, configurable word count</p>
+  </header>
+
+  <main>
+    <!-- Left column -->
+    <section class="col-left">
+
+      <!-- API key -->
+      <div class="card api-key-card">
+        <label for="api-key">Anthropic API Key</label>
+        <div class="input-row">
+          <input
+            type="password"
+            id="api-key"
+            placeholder="sk-ant-..."
+            autocomplete="off"
+          />
+          <button id="toggle-key" type="button" aria-label="Show key">
+            <svg class="eye-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+        </div>
+        <p class="hint">Used to classify paper sections via Claude. Your key is never stored.</p>
+      </div>
+
+      <!-- Upload area -->
+      <div class="card upload-card" id="drop-zone">
+        <input type="file" id="file-input" accept=".pdf" hidden />
+        <div class="upload-content" id="upload-content">
+          <svg class="upload-icon" viewBox="0 0 48 48" width="48" height="48" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M24 32V12m0 0l-8 8m8-8l8 8"/>
+            <path d="M8 36h32"/>
+          </svg>
+          <p class="upload-label">Drag & drop your PDF here</p>
+          <p class="upload-hint">or <button type="button" id="browse-btn" class="link-btn">browse files</button></p>
+        </div>
+        <div class="file-info hidden" id="file-info">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          <span id="file-name"></span>
+          <button type="button" id="clear-file" class="link-btn" aria-label="Remove file">&times;</button>
+        </div>
+      </div>
+
+      <!-- Analyze button -->
+      <button class="btn-primary" id="analyze-btn" disabled>Analyze PDF</button>
+
+      <!-- Progress -->
+      <div class="progress hidden" id="progress">
+        <div class="spinner"></div>
+        <span>Analyzing paper&hellip; this may take a few seconds</span>
+      </div>
+
+      <!-- Error -->
+      <div class="error-banner hidden" id="error-banner">
+        <span id="error-msg"></span>
+        <button type="button" id="dismiss-error" class="link-btn">&times;</button>
+      </div>
+
+      <!-- Results -->
+      <div class="card results-card hidden" id="results">
+        <div class="results-header">
+          <div class="count-big">
+            <span class="count-number" id="effective-count">0</span>
+            <span class="count-label">effective words</span>
+          </div>
+          <div class="count-meta">
+            <div><span class="meta-num" id="total-count">0</span> total words</div>
+            <div><span class="meta-num" id="excluded-count">0</span> excluded</div>
+            <div><span class="meta-num" id="page-count">0</span> pages</div>
+          </div>
+        </div>
+
+        <!-- Breakdown bars -->
+        <div class="breakdown" id="breakdown"></div>
+      </div>
+    </section>
+
+    <!-- Right column: toggles -->
+    <aside class="col-right">
+      <div class="card toggles-card">
+        <h2>Include in Count</h2>
+        <p class="toggles-hint">Toggle which sections count toward the total</p>
+        <div class="toggle-list" id="toggle-list">
+          <!-- populated by JS -->
+        </div>
+      </div>
+      <div class="card legend-card">
+        <h3>Always Excluded</h3>
+        <ul class="excluded-list">
+          <li>Page numbers</li>
+          <li>Running titles / headers</li>
+        </ul>
+      </div>
+    </aside>
+  </main>
+
+  <script src="/static/script.js"></script>
+</body>
+</html>
