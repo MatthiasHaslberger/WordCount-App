@@ -4,34 +4,18 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Academic Paper Word Counter</title>
-  <link rel="stylesheet" href="/static/style.css" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header>
     <h1>Academic Paper Word Counter</h1>
     <p class="subtitle">Upload a PDF and get a precise, configurable word count</p>
+    <p class="privacy-note">Fully client-side &mdash; your PDF never leaves your browser</p>
   </header>
 
   <main>
     <!-- Left column -->
     <section class="col-left">
-
-      <!-- API key -->
-      <div class="card api-key-card">
-        <label for="api-key">Anthropic API Key</label>
-        <div class="input-row">
-          <input
-            type="password"
-            id="api-key"
-            placeholder="sk-ant-..."
-            autocomplete="off"
-          />
-          <button id="toggle-key" type="button" aria-label="Show key">
-            <svg class="eye-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>
-          </button>
-        </div>
-        <p class="hint">Used to classify paper sections via Claude. Your key is never stored.</p>
-      </div>
 
       <!-- Upload area -->
       <div class="card upload-card" id="drop-zone">
@@ -57,7 +41,7 @@
       <!-- Progress -->
       <div class="progress hidden" id="progress">
         <div class="spinner"></div>
-        <span>Analyzing paper&hellip; this may take a few seconds</span>
+        <span>Analyzing paper&hellip;</span>
       </div>
 
       <!-- Error -->
@@ -104,6 +88,6 @@
     </aside>
   </main>
 
-  <script src="/static/script.js"></script>
+  <script type="module" src="script.js"></script>
 </body>
 </html>
